@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://homepage.lnu.se/staff/jlnmsi/java2/2020/lab2.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+ 
+<link rel="stylesheet" type="text/css" href="./1DV507_ Assignment 2_files/assignment.css">
+<title>1DV507: Assignment 2</title> 
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h4 style="color:#0000cc">1DV507, Programming and Data Structures, Spring 2020</h4>
+<hr style="color:#0000cc">
+<h1 style="color:#0000cc">Assignment 2: New Java features, JUnit, Generics, and JavaFX (1)</h1>
+<hr style="color:#0000cc">
+
+<p>
+<b>Problems?</b><br>
+Do not hesitate to ask your teaching assistant at the practical meetings (or Jonas/Tobias at the lectures) 
+if you have any problems. You can also post a question in the assignment forum in Moodle.  
+</p><p>
+
+<b>Prepare Eclipse/IntelliJ for course 1DV507 and Assignment 2</b><br>
+Inside your Java project named 1DV507, 
+create a new <em>package</em> with the name <tt>YourLnuUserName_assign2</tt> 
+and save all program files for this 
+assignment inside that package.
+</p><p>
+
+
+
+
+</p><h4>General Assignment Rules</h4>
+<ul>
+<li> <b>Use English!</b> All documentation, names of variables, methods, classes, and user instructions, should be in English.
+</li><li> Each exercise involving more than one class should be in a separate package with a suitable (English!) name.</li>
+<li> All programs asking the user to provide some input should check that the user input is correct 
+and take appropriate actions if it is not.
+</li></ul>
+
+<h4 style="color:#0000cc">Submission</h4>
+We are only interested in your .java files and please notice that the VG exercise 3 is not mandatory.
+You should always submit everything needed to compile and run your code. That is, apart from .java files, 
+figures and icons that might be used in the JavaFX exercises (assignment 2 and 3) and maybe some external libraries (.jar files). <p></p>
+
+Each student submit their assignments by creating an issue (one for each assignment) 
+in their repository at the time of the deadline.  Instructions related to GitLab are published in Moodle.
+
+
+
+<h3 style="color:#0000cc">Lecture 4 - New Java Features</h3>
+<!--
+<b>Not ready yet! </b> Will be presented before Lecture 3.
+-->
+
+<ul>
+<li><b>Exercise 1</b><br>
+The file <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/CountrySort.zip">CountrySort.java</a>  contains a skeleton of a Java program where we want you to sort a string array containing the names of all countries in the world (a few years ago) in three different ways.
+The sorting should be done using the library method <tt>Arrays.sort(String[] s, Comparator&lt;String&gt; c)</tt> that 
+requires a comparator function <tt>String, String ==&gt; int</tt> to define the sorting order to be used. 
+<p>
+</p><ul>
+<li> Task 1: Sort country names based on their length (longest first) and print a list of the ten countries with longest names</li>
+<li> Task 2: Sort country names in reverse alphabetic order and print a list of the ten first countries in that list</li>
+<li> Task 3: Sort country names based on the number of As (A or a) they contain print a list of the ten countries with most As</li>
+</ul>
+<p>
+<b>Notice:</b> There is not much coding needed in this exercise. You only need to define three comparator functions. 
+Also, we expect you to download CountrySort.java, make a few changes, and than submit that file. 
+</p></li>
+<p>
+</p><p>
+
+
+</p><li><b>Exercise 2</b><br>
+The file <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/FunctionPointers.zip">FunctionPointers.java</a>  contains a skeleton of a Java program where we want you 
+to add support for (a) apply predicates on a list of integers, and (b) apply functions on a list of doubles.
+
+Recommended steps: 
+<p>
+</p><ol>
+<li> Provide an implementation to the method <tt>selectAndPrint</tt> that prints all elements in the list where a given predicate evaluates to true.
+</li><li> Update the two predicates <tt>odd</tt> and <tt>aboveTen</tt>  to make them recognize odd numbers and numbers that are greater than 10 </li>
+<li> Provide an implementation to the method <tt>applyFunction</tt> that returns a new list containing the numbers resulting from applying function fx 
+on the numbers in the input list.
+</li><li> Provide a function powerOfTwo that computes the square of any input double</li>
+</ol>
+<p>
+<b>Notice:</b> Once again, there is not much coding needed in this exercise. 
+And once again,, we expect you to download FunctionPointersSort.java, make a few changes, and than submit that file. 
+An execution of the program once you have completed all tasks should look like:
+</p><pre>Part 1: Apply predicates
+Print all numbers: 45 3 24 16 1 1 3 8 7 6 10 12 17 22 30 
+Print all odd numbers: 45 3 1 1 3 7 17 
+Print all numbers greater than 10: 45 24 16 12 17 22 30 
+
+Part 2: Apply functions
+Original: [1.0, 16.0, 25.0, 81.0]
+Square root: [1.0, 4.0, 5.0, 9.0]
+Power of two: [1.0, 256.0, 625.0, 6561.0]
+
+</pre>
+</li>
+
+<p>
+
+</p><li><b>Exercise 3 (VG Task)</b> <br>
+The (very large) file <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/WarAndPeace.txt">WarAndPeace.txt</a>  contains the entire text of the book War and Peace by the russian author Leo Tolstoy.
+Your task is to write a single-class program <tt>WarAndPeace.java</tt> that, once you have split the text into separate words, use a <em>single</em> Java 1.8 stream to compute the number of unique words used in the text. 
+Words are substrings made of ordinary letters and the characters <tt>'</tt> (as in <tt>don't</tt>) and <tt>-</tt> (as in <tt>well-known</tt>). Other type of 
+characters (e.g. digits) should be removed from each word as well as entire words only containing such characters.
+Also, we do not care about upper and lower case when looking for unique words. Hence, <tt>HELLO</tt> and <tt>Hello</tt> are considered to be the same word.
+<p></p>
+The first lines in your code should look something like:
+<pre>String text = readText("WarAndPeace.txt");   // My own method
+String[] words = text.split(" ");  // Simple split, will be cleaned up later on
+System.out.println("Initial word count: "+words.length);   // We found 577091
+		
+Stream<string> stream = Arrays.stream(words);
+... continue here
+</string></pre>
+
+</li>
+
+<p></p>
+
+
+
+</ul>
+
+
+<h3 style="color:#0000cc">Lecture 5 - JUnit Testing and Generics </h3>
+<b> Important:</b> You must use JUnit 5. Solutions based on older versions will not be accepted.
+
+<ul>
+<li><b>Exercise 4</b><br>
+Write a JUnit test for the class <tt>LinkedQueue</tt> in Exercise 5, Assignment 1. 
+</li>
+<p>
+</p><p>
+
+
+</p><li><b>Exercise 5 </b><br><br>
+In Exercise 5, Assignment 1 you were asked to provide a linked implementation of the following queue interface<br>
+<pre>public interface IntQueue extends Iterable&lt;Integer&gt; {  
+   public int size();                     // current queue size 
+   public boolean isEmpty();              // true if queue is empty 
+   public void enqueue(int element);   // add element at end of queue 
+   public int dequeue();               // return and remove first element. 
+   public int first();                 // return (without removing) first element 
+   public int last();                  // return (without removing) last element 
+   public String toString();              // return a string representation of the queue content
+
+}
+</pre>
+<b>Tasks:</b>
+<ul>
+<li> Provide a similar <em>generic</em> queue interface named <tt>Queue&lt;T&gt;</tt>.
+</li><li> Provide a linked generic queue named <tt>LinkedQueue&lt;T&gt;</tt> that implements the interface <tt>Queue&lt;T&gt;</tt> 
+using the <em>head-and-tail</em> approach.
+</li><li> Write a JUnit test program <tt>QueueTest</tt> for your generic queue implementation. Make sure that you are using at least two parameter types (e.g. Integer and String) in your tests.
+</li></ul>
+<p>
+You are of course allowed to reuse your own non-generic queue implementation/test from Assignment 1.
+However, make sure to take into account all comments given to you by your teaching assistant when he/she 
+corrected it.
+</p></li>
+<p>
+</p><p>
+
+
+
+</p></ul>
+
+
+
+<h3 style="color:#0000cc">Lecture 6 - JavaFX (Part 1)</h3>
+<b>Important:</b> You are not allowed to use any GUI builder tools in these assignments. 
+All your code should be written by you, not generated by a tool.
+<p></p>
+<p></p>
+
+
+<ul>
+<li><b>Exercise 6</b><br>
+Write a program <tt>Snowman.java</tt> which creates a JavaFX Application window containing a drawing of a snowman. It should
+be drawn by you using the vector graphics primitives in JavaFX and not a static image. The snowman must not look <i>exactly</i>
+as in the image below, but it must consist of three differently sized circles with three buttons, stand in snow, have a face
+and a sun in the top. You are allowed to add to the snowman, for example a nice hat, a happy smile or a carrot nose.
+<p>
+</p><center>
+  <img src="./1DV507_ Assignment 2_files/snowman.png" width="400px" style="border-style: solid; border-width: thin;">
+</center>
+<p></p>
+
+
+
+</li><li><b>Exercise 7</b><br>
+Create a class <tt>CompoundInterest.java</tt> that calculates a compound interest, for example for a loan or saving. You
+can read more about compound interest on <a href="https://en.wikipedia.org/wiki/Compound_interest">Wikipedia</a>. The
+program should allow the user to input an amount of money (in no particular currency), an interest and a number of years.
+At the press of the button it should calculate the total sum of money that corresponds to with compound interest.<br>
+<br>
+    <img src="./1DV507_ Assignment 2_files/ci2.png" width="250px" style="float:left;border-style: solid; border-width: thin;margin-left:10px">
+    <img src="./1DV507_ Assignment 2_files/ci1.png" width="250px" style="float:left;border-style: solid; border-width: thin;margin-left:10px; margin-bottom:20px;">
+
+<br><br>
+
+</li>
+
+
+
+<li style="clear:both;"><b>Exercise 8</b><br>
+Write a GUI program <tt>Yahtzee.java</tt> that will be the <i>beginning</i> of a game of Yahtzee.
+The program should display five dice (you can find graphics on the Internet) and allow the user
+to roll the dice three times. For each throw, the user should be able to hold one or more of the dice,
+i.e. only rethrow the others. Do this by displaying check boxes below the each die, and it should only
+be possible to tick the box once the first throw has been made (the check boxes should be set to disabled
+when the program starts). The program only needs to work once, so when three throws are done, you need to
+restart the program to try again. When all three thows are done, the program should display if the final dice
+are showing one of the following: Yahtzee, Four of a kind, Three of a kind, Full House, Large Straight, Small
+Straight or Pair. Check the dice in that order, only one of them needs to be displayed. An example run
+of the game is shown below.
+
+<p></p>
+<center>
+  <img src="./1DV507_ Assignment 2_files/y.png" width="500px"><br><p></p>
+</center>
+
+</li></ul>
+
+
+
+<!--
+<ul>
+<li><b>Exercise 5</b><br>
+Write a program <tt>OneTwoThree.java</tt> which creates a JavaFX Application window containing the following. 
+<ol>
+<li> Three panes with different colors. </li>
+
+<li> Each pane should contain a word: <tt>One</tt>, <tt>Two</tt> or <tt>Three</tt>. </li>
+<li> <tt>One</tt> should be placed in the upper left corner, <tt>Two</tt>  should be placed in the 
+middle of the panel and <tt>Three</tt> in the lower right corner. </li>
+
+</ol>
+Choose size and color of the panes to make it look nice.
+</p>
+<center>
+  <img src="onetwothree.gif"><br></p>
+</center>
+<p>
+</li>
+<p/>
+<p/>
+
+
+<li><b>Exercise 6</b><br>
+Create a class <tt>RandomPanel</tt> (extends BorderPane) containing two panes.  One of the panes should contain a 
+button with the text <tt>New Random</tt>. When the button is pressed a random number in the interval 1-100 is 
+generated and shown in the other pane. Try to change the size of the text so that the number 100 fills the pane. 
+Also, write a test program <tt>RandomMain.java</tt> starting an Application containing a <tt>RandomPanel</tt>.
+</li>
+
+<p/>
+
+<li><b>Exercise 7</b><br>
+Write a GUI program <tt>ColorDisplay.java</tt>. When the button ”Display Color” is pressed, three 
+integers (red, green, blue) are read and the color of the upper pane is changed according to the 
+values of the integers. Use three components of the type TextField to read the integers. The picture 
+below shows how the execution of the program can look.  
+</p>
+<center>
+  <img src="./color_display_eng.png"><br></p>
+</center>
+<p>
+If erroneous values of the integers are read, an error message should be printed and the upper pane 
+should not be updated. The most important thing is that the program is working properly. It is also 
+important for the program to have a good structure to make it easy to follow and to understand. Divide 
+big methods and big classes into smaller ones, if necessary.
+</li>
+</p>
+
+
+</ul>
+
+-->
+<pre>
+
+</pre>
+<hr style="color:#0000cc">
+
+
+<!--
+<li><b>Exercise 12</b><br>
+Write a program <tt>OlympicRings.java</tt> that displays 
+the Olympics rings. Color the rings in the Olympic colors. Solve the  
+problem by providing a method <tt>drawRing</tt> that draws a ring of a 
+given position and color. Also, below the rings,  write the text 
+<tt>Sweden will take plenty of medalls in Sotji!</tt> (or anything 
+else you find suitable). Draw the rings using graphics. Use the file 
+<tt>PaintPanel.java</tt> (from the examples of the GUI 1 lecture) as a model 
+for how to structure the code.
+
+</li>
+</p>
+
+<li><b>Exercise 10</b><br>
+Re-use as much as possible from Exercise 6 but create a graphical user interface for it 
+using JavaFX. In addition to the native JavaFX, also use Controls- FX (<tt>http://fxexperience.com/controlsfx/</tt>). 
+The user should start the program and be able to open a file using a file selector. The file should be presented 
+in the user interface in one text field and the errors in another. Use ControlsFX to make your application better, 
+we like you to experiment with it and use the controls you see fit to make your application better or nicer to look at.
+</li>
+</p>
+-->
+
+
+</body></html>

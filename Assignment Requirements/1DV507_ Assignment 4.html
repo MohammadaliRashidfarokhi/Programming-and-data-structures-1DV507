@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://homepage.lnu.se/staff/jlnmsi/java2/2020/lab4.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+ 
+<link rel="stylesheet" type="text/css" href="./1DV507_ Assignment 4_files/assignment.css">
+<title>1DV507: Assignment 4</title> 
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h4 style="color:#0000cc">1DV507, Programming and Data Structures, Spring 2020</h4>
+<hr style="color:#0000cc">
+<h1 style="color:#0000cc">Assignment 4: Algorithms</h1>
+<hr style="color:#0000cc">
+
+<p>
+<b>Problems?</b><br>
+Do not hesitate to ask your teaching assistant at the practical meetings (or Jonas/Tobias at the lectures) 
+if you have any problems. You can also post a question in the assignment forum in Moodle.  
+</p><p>
+
+<b>Prepare Eclipse/IntelliJ for course 1DV507 and Assignment 4</b><br>
+Inside your Java project named 1DV507, 
+create a new <em>package</em> with the name <tt>YourLnuUserName_assign4</tt> 
+and save all program files for this 
+assignment inside that package.
+</p><p>
+
+
+
+
+</p><h4>General Assignment Rules</h4>
+<ul>
+<li> <b>Use English!</b> All documentation, names of variables, methods, classes, ..., should be in English.
+</li><li> Each exercise involving more than one class should be in a separate package with a suitable (English!) name.</li>
+<li> All programs asking the user to provide some input should check that the user input is correct 
+and take appropriate actions if it is not.
+</li></ul>
+
+<h4 style="color:#0000cc">Submission</h4>
+We are only interested in your .java files and please notice that the VG exercises 7b, 10 and 11 are not mandatory.
+You should always submit everything needed to compile and run your code. That is, apart from .java files, 
+figures and icons that might be used in the JavaFX exercises and maybe some external libraries (.jar files). <p></p>
+
+Each student submit their assignments by creating an issue (one for each assignment) 
+in their repository at the time of the deadline.  Instructions related to GitLab are published in Moodle.
+
+
+<h3 style="color:#0000cc">Lecture 10 - Hashing and Binary Search Trees</h3>
+
+The following five exercises are actually one large exercise named <em>Count Words</em>.
+We have divided Count Words into smaller steps, Exercises 1 - 5, for simplicity.
+We want you to count the number of different words in the text
+<a href="http://homepage.lnu.se/staff/jlnmsi/java2/HistoryOfProgramming.txt">HistoryOfProgramming.txt</a>
+by adding all "words" to a set. We will use four different set implementations:
+two predefined from the Java library and two that you will implement by yourselves.<br>
+<p>
+<b>Notice:</b>
+All files related to <em>Count Words</em> should be saved in a package named <tt>count_words</tt>.
+
+</p><ul>
+
+<li><b>Exercise 1 </b><br>
+Write a program <tt>IdentyfyWordsMain</tt> that reads a text file (like HistoryOfProgramming)
+and divide the text into a sequence of words (word = sequence of letters). All non-letters (except whitespace)
+should be removed. Save the result
+in a new file (words.txt). Example:
+<pre>Text
+====
+Computer programming, History of programming
+From Wikipedia, the free encyclopedia (081110)
+
+The earliest known programmable machine (that is a machine whose
+behavior can be controlled by changes to a
+"program") was Al-Jazari's programmable humanoid robot in 1206.
+
+Sequence of words
+=================
+Computer programming History of programming
+From Wikipedia the free encyclopedia
+The earliest known programmable machine that is a machine whose
+behavior can be controlled by changes to a
+program was Al Jazaris programmable humanoid robot in
+</pre>
+All exceptions related to file handling shall be handled within the program.
+
+</li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 2</b><br><br>
+Create a class Word, representing a word. Two words should be considered equal if they
+consist of the same sequence of letters and we consider upper case and lower case as
+equal. For example hello, Hello and HELLO are considered to be equal. The methods
+equals and hashCode define the meaning of "equality". Thus, the class Word should
+look like the following.
+<pre>public class Word implements Comparable&lt;Word&gt; {
+   private String word;
+
+   public Word(String str) { ... }
+   public String toString() { return word; }
+
+   /* Override Object methods */
+   public int hashCode() { ... compute a hash value for word }
+   public boolean equals(Object other) { ... true if two words are equal }
+
+   /* Implement Comparable */
+   public int compareTo(Word w) { ... compares two words lexicographically }
+}
+</pre>
+<b>Note:</b>
+<ul>
+<li> If you want, you can add more methods. The methods mentioned above are the
+minimum requirement.
+</li><li> Exercise 3 and onward is based on Exercise 2. Thus, carefully test all methods before
+proceeding.
+</li></ul>
+</li>
+<p>
+</p><p>
+
+
+</p><li><b>Exercise 3</b><br><br>
+Create a program WordCount1Main doing the following:<br><p>
+For each word in the file word.txt
+</p><ol>
+<li> Create an object of the class Word
+</li><li> Add the object to a set of the type java.util.HashSet
+</li><li> Add the object to a set of the type java.util.TreeSet
+</li></ol>
+<p>
+<b>Note:</b>
+</p><ol>
+<li> The size of the sets should correspond to the number of different words in the files. (Our
+tests gave 350 words for the file HistoryOfProgramming)
+</li><li> An iteration over the words in the TreeSet should give the words in alphabetical
+order.
+</li><li> Since our defintion of a word is not very precise (similar to the WarAndPeace exercise
+in Assignment 2), we do not expect all of you to end up with exactly 350 words. But it should be rather close.
+</li></ol>
+</li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 4</b><br><br>
+Given the following interface
+<pre>public interface WordSet extends Iterable&lt;Word&gt; {
+   public void add(Word word); // Add word if not already added
+   public boolean contains(Word word); // Return true if word contained
+   public int size(); // Return current set size
+   public String toString(); // Print contained words
+}
+</pre>
+Implement the interface using a) Hashing, b) Binary Search Tree.
+In the case of hashing, a rehash shall be performed when the number of
+inserted elements equals the number of buckets. For the binary search tree, the
+elements shall be sorted using the method compareTo. The names of the two
+implementations shall be <tt>HashWordSet</tt> and <tt>TreeWordSet</tt>.<p>
+
+<b>Note:</b> You are not allowed to use any predefined collection classes from the Java
+library. However, you are allowed to use arrays.
+</p></li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 5</b><br><br>
+Repeat Exercise 3 with the new implementations HashWordSet and TreeWordSet.
+The program shall be called <tt>WordCount2Main</tt>. The two notes of Exercise 3
+should still be valid.
+</li>
+<p>
+</p><p>
+
+
+</p></ul>
+
+
+
+
+
+<h3 style="color:#0000cc">Lecture 11 - Time Measurements</h3>
+Exercises 6-8 forms a unit related to time measurements. Please create a new subpackage named <tt>time</tt> 
+to handle these exercises.
+
+
+<ul>
+
+<li><b>Exercise 6 </b><br><br>
+Repeated string concatenations can be done in two ways: 1) Using the plus operator you can construct
+a long string by constantly increasing the length as: <tt>str = str + "..."</tt>, 2) Using the 
+StringBuilder class and repeated use of method <tt>append("...")</tt>. Your task is to find the 
+fastest approach by measuring how many concatenations, and the length of the final string, 
+each of them can compute <em>in 1 second</em> when:
+<p>
+</p><ol>
+<li> Adding short strings containg only one character 
+</li><li> Adding long strings representing a row with 80 characters
+</li></ol>
+<p>
+<b>Notice 1:</b> We are interested in eight different numbers. The number of concatenations, and the final 
+string length when: 1) Concatenating short strings, 2) Concatenating long string, 3) Appending short 
+strings, and 4) Appending long strings. Make sure to include the final toString() call when measuring the 
+time for the StringBuilder approach.<br>
+</p><p>
+<b>Notice 2:</b> Trustworthy experiments using computers is not based on a single run of the program. 
+Use repeated runs (say 5-10) having an average of about 1 second. <br>
+</p><p>
+<b>Notice 3:</b> You will be asked to write a report presenting your result. Hence, it might 
+be a good idea to glance through Exercise 8 before you start implementing.<br>
+
+
+</p></li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 7 (50% VG Exercise) </b><br><br>
+In Assignment 3 you implemented 4 different sorting algorithms: Insertion Sort (for both strings and integers) 
+and Merge Sort (VG Exercise, for both strings and integers). How many strings and integers can be sorted <em>in 1 
+second</em> using these four algorithms? <br>
+<p>
+<b>For integers</b>: Sort arrays with random generated integers. The range used by the random generator 
+should be larger than the array size in order to reduce the number of duplicate elements.<br>
+<b>For strings</b>: Sort arrays in alphabetic order using arrays of random generated strings where each string contains 10 randomly generated 
+characters. <br>
+</p><p>
+<b>Notice:</b> Handling Merge Sort is a VG Exercise (since implementing it was a VG Exercise in Assignment 3)
+</p></li>
+<p>
+</p><p>
+
+
+</p><li><b>Exercise 8</b><br><br>
+Write a short report about your experiments in Exercises 6 and 7. For each experiment:
+<p>
+</p><ol>
+<li> Describe how you did your experiment.
+</li><li> Show a table and/or figure of your results.
+</li><li> <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/time_measurements.pdf">An example of what a report might look like</a>.
+</li><li> We expect a good looking report in pdf format produced using a tool like Word or Latex.
+</li></ol>
+<p>
+Also, in the report, try to explain why StringBuilder is much faster than string concatenation using the + operator.
+</p></li>
+<p>
+</p><p>
+</p></ul>
+
+<h3 style="color:#0000cc">Lecture 11 - Priority Queues</h3>
+Exercises 9-10 are related to Priority Queues and Binary Heaps. 
+Please create a new subpackage named <tt>binheap</tt> to handle these exercises.
+<ul>
+<li><b>Exercise 9</b><br><br>
+A very simple version of an array based binary heap can be considered as an integer data structure 
+with only four methods (plus one constructor):
+<pre>public BinaryIntHeap()   // Constructs an empty heap
+public void insert(int n) // Add n to heap
+public int pullHighest()    // Return and remove element with highest priority
+public int size()         // Current heap size
+public boolean isEmpty() // True if heap is empty
+</pre>
+
+<b>Task</b>: Implement a class BinaryIntHeap containing the methods above following the standard rules 
+for how to implement a binary heap. Write also a JUnit test case to check the correctness of your 
+heap implementation.  <p>
+
+<b>Notice:</b> In this very simple approach the element and the priority are the same. 
+More general tasks will be handled in the next exercise.
+</p><p>
+More information about binary heaps can be found:
+</p><ol>
+<li> In the lecture slides
+</li><li> In the textbook by Liang. (It explains Heap Sort, a sorting algorithm using a binary heap. First insert all elements, then pull them ==&gt; elements sorted.)
+</li><li> On the Internet. Just Google on "Binary Heap".
+</li></ol>
+As usual, please give proper references to all "resources" found on the Internet that you 
+have been using.
+
+</li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 10  (VG Exercise)</b><br><br>
+The binary heap is one implementation technique for a Priority Queue. A Priority Queue
+is a data structure that allows the processing of a number of Tasks based on some priority.
+It supports two major operations: <tt>void insert(Task t)</tt> and <tt> Task pullHighest()</tt>. 
+However, we also expect it to support standard operations like contains(), size(), isEmpty(), peekHighest(), etc.<br>
+<p>
+
+</p><ol>
+<li>Your first task is to design two interfaces (or abstract classes) named <tt>PriorityQueue</tt> 
+and <tt>Task</tt> that together describes a priority queue in general.   
+</li><li> Your second task is to provide a concrete priority queue implementation named <tt>BinaryHeapQueue</tt> 
+(based on binary heaps) and a concrete task implementation named <tt>WorkTask</tt>. In addition to a priority 
+(positive integer), a WorkTask  also comes with a work description (a string).  
+</li></ol>
+<p>
+We also expect you to write a small program <tt>WorkMain</tt> that demonstrates how to use
+your priority queue.</p><p>
+
+<b>Notice</b>: Good Design implies flexibility and extendability. Hence, try to make it easy to replace the
+<tt>WorkTask</tt> with another type of task that also implements the <tt>Task</tt> interface. 
+Also, it should be easy to switch from one <tt>PriorityQueue</tt> implementation (e.g <tt>BinaryHeapQueue</tt>) to another. 
+</p><p>
+</p></li>
+<p>
+</p><p>
+
+</p><h3 style="color:#0000cc">Java in General</h3>
+Exercises 11 is not related to any particular lecture or chapter. It is however 
+a typical example of Java exercises that you will face if you continue to study Computer Science.
+<p>
+</p><p>
+</p><p>
+
+</p><ul>
+<li><b>Exercise 11  (VG Exercise)</b><br><br>
+The file <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/microchips.csv">microchips.csv</a> contains a dataset related to an 
+attempt to identify flaws in a microchip based on two numerical chip properties. Each row in 
+the file represents one microchip and contains three comma separated values, the two  properties 
+and an integer (1 or 0) indicating if the microchip turned out to be OK (1) or Failed (0). 
+A plot of the dataset is shown below.
+<center><br>
+<img src="./1DV507_ Assignment 4_files/microcchip.png"> 
+</center>
+
+Your task is to implement a well-known machine learning algorithm called k-Nearest Neighbors (kNN)
+and to predict whether three unknown microchips are likely to be OK or Fail. The properties associated 
+with the three unknown microchips are (-0.3, 1.0), (-0.5, -0,1), and (0.6, 0.0), and you should repeat 
+the experiments for k = 1, 3, 5. Hence, a total of nine predictions.<br>
+<p>
+
+Your program should start by presenting the dataset in a figure (like the figure above) and 
+then print the nine prediction result on the console. For example, for k = 5 the print out 
+might look like:
+
+</p><pre>k = 5
+	chip1: [-0.3, 1.0] ==&gt; Fail
+	chip2: [-0.5, -0.1] ==&gt; OK
+	chip3: [0.6, 0.0] ==&gt; OK
+</pre>
+
+
+You can find plenty of information about k-Nearest Neighbors on the Internet. Also, feel 
+free to use any kNN Java library/code you can find but make sure to give a proper reference,
+and to include in your submission everything we need to run your program.
+
+<p>
+</p></li>
+<p>
+</p><p>
+
+</p><pre>
+
+</pre>
+<hr style="color:#0000cc">
+
+
+
+
+
+
+</ul></ul></body></html>

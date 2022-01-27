@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://homepage.lnu.se/staff/jlnmsi/java2/2020/lab1.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+ 
+<link rel="stylesheet" type="text/css" href="./1DV507_ Assignment 1_files/assignment.css">
+<title>1DV507: Assignment 1</title> 
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h4 style="color:#0000cc">1DV507 , Programming and Data Structures, Spring 2020</h4>
+<hr style="color:#0000cc">
+<h1 style="color:#0000cc">Assignment 1: Inheritance and Simple Data Structures</h1>
+<hr style="color:#0000cc">
+
+<p>
+<b>Problems?</b><br>
+Do not hesitate to ask your teaching assistant at the practical meetings (or your teacher at the lectures) 
+if you have any problems. You can also post a question in the assignment forum in Moodle.  
+</p><p>
+
+<b>Prepare Eclipse/IntelliJ for course 1DV507 and Assignment 1</b><br>
+Start by creating a new Java project named 1DV507. Then 
+create a new <em>package</em> with the name <tt>YourLnuUserName_assign1</tt> inside the 
+Java project <tt>1DV507</tt> and save all program files for this assignment inside that  package.
+Later on, when submitting your assignment, you should submit a zipped version of this folder/package.
+</p><p>
+
+
+</p><h4>General Assignment Rules</h4>
+<ul>
+<li> <b>Use English!</b> All documentation, names of variables, methods, classes, and user instructions, should be in English.
+</li><li> Each exercise involving more than one class should be in a separate package with a suitable (English!) name. For example, 
+in Exercise 1, create a new sub package named <tt>shape</tt>
+inside your package <tt>YourLnuUserName_assign1</tt> and save all .java files related to that 
+exercise inside this package.</li>
+<li> All programs asking the user to provide some input should check that the user input is correct 
+and take appropriate actions if it is not.
+</li></ul>
+
+<h4 style="color:#0000cc">Submission</h4>
+We are only interested in your .java files and please notice that the VG exercises 6 is not mandatory.
+You should always submit everything needed to compile and run your code. That is, apart from .java files, 
+figures that might be used in the JavaFX exercises (assignment 2 and 3) and maybe some external libraries (.jar files). <p></p>
+
+Each student submit their assignments by creating a git release (one for each assignment) 
+in their repository at the time of the deadline.  Instructions related to GitLab will be published in Moodle.
+
+
+
+
+<h3 style="color:#0000cc">Lecture 1 and 2 - Inheritance, Interfaces and Abstract Classes</h3>
+
+<ul>
+<li><b>Exercise 1</b><br>
+The is an inheritance exercise involving four classes: Shape, Rectangle, Square, and Circle. 
+The abstract superclass Shape is specified below, the design of the other three classes is 
+up to you to decide. Requirements:
+<ul>
+<li> Class Shape is an abstract class that looks like this:
+<pre>public abstract class Shape {
+	protected String name;
+	
+	public Shape(String shapeName) { name = shapeName; }
+	
+	public abstract double getArea();
+	public abstract double getPerimeter();
+	
+	@Override 
+	public String toString() {
+		DecimalFormat f = new DecimalFormat("##.00");
+		String a = f.format( getArea() );
+		String p = f.format( getPerimeter() );
+		return name+", Area = "+a+", Perimeter = "+p;
+	}	
+}
+</pre> 
+</li><li> Class Rectangle and Circle inherit from Shape, class Square inherits from Rectangle.
+</li><li>  A simple demo program ShapeMain
+<pre>public class ShapeMain {
+	public static void main(String[] args) {
+		ArrayList&lt;Shape&gt; shapes = new ArrayList&lt;Shape&gt;();
+		shapes.add( new Rectangle("R1",2,3) );  // base=2, height=3
+		shapes.add( new Rectangle("R2",3,4) ); 
+		shapes.add( new Square("S1",3) );       // side=3
+		shapes.add( new Square("S2",5) );
+		shapes.add( new Circle("C1",1) );       // radius=1
+		shapes.add( new Circle("C2",2) );
+		
+		for (Shape s :shapes)  // Print all shapes
+			System.out.println(s);
+	}
+}
+</pre>
+should give an output like
+<pre>R1, Area = 6.00, Perimeter = 10.00
+R2, Area = 12.00, Perimeter = 14.00
+S1, Area = 9.00, Perimeter = 12.00
+S2, Area = 25.00, Perimeter = 20.00
+C1, Area = 3.14, Perimeter = 6.28
+C2, Area = 12.57, Perimeter = 12.57
+</pre>
+</li></ul>
+Make sure that all classes are properly encapsulated. The short user scenario above uses 
+only a few methods, feel free to add additional methods that you think are appropriate in 
+a more general user scenario. 
+</li>
+<p>
+
+ 
+</p><li><b>Exercise 2</b><br>
+A stack is a LiFo (Last-in, first-out) data structure with three basic operations: push, pop and peek.
+push is putting an element on the top of the stack, pop removes (and returns) the top element, and
+peek returns (without removing) the top element. Think of a stack as a pile of plates that can be 
+found in sime restaurants. You can only add and remove the top-most plate. You can not remove 
+any plates in the middle of the pile (without first removing all plates above it).
+
+Your task is to implement the following stack interface:
+<pre>public interface StringStack {
+   int size(); 			// Current stack size
+   boolean isEmpty(); 		// true if stack is empty
+   void push(String element); 	// Add element at top of stack
+   String pop(); 		// Return and remove top element,
+				// exception if stack is empty
+   String peek(); 		// Return (without removing) top element,
+				// exception if stack is empty.
+}
+
+</pre> 
+Illegal operations on an empty stack (e.g., pop() and peek()) should generate an exception. 
+The stack should be able to handle an arbitrary number of elements. 
+You should also present a test program StackMain.java that demonstrates how each method can be used.
+Notice: You are not allowed to use any of the data structures in the Java library. However, you can 
+use arrays.
+
+</li>
+<p>
+
+   </p><li><b>Exercise 3</b> <br>
+   In the following exercise you should create a number of classes to solve a problem. The exercise 
+description is rather vague, more of a sketchy scenario than a concrete problem specification. Your 
+task is to create the necessary classes to simulate this scenario. All classes should be properly
+documented and encapsulated. <p></p>
+   <p> Your task is to create a programming system for a ferry. The ferry transports passengers 
+   and vehicles (cars, busses, lorries and bicycles). The ferry has space for 200 passengers and 40 cars. 
+   A lorry needs as much space as two busses or 8 cars. A car needs as much space as 5 bicycles. There are 
+   different fees for different vehicles and an extra fee might be added for passengers. 
+   Use the following fees:
+   </p><ol>
+          
+   <li> Passenger without vehicle, 25 kr.
+   </li><li> Bicycle 40 kr (passenger included).
+   </li><li> Car 100 kr + 20 kr/passenger (maximum 4 passengers).
+   </li><li> Bus 200 kr + 15 kr/ passenger (maximum 20 passengers).
+   </li><li> Lorry 300 kr + 20 kr/ passenger (maximum 2 passengers).
+   </li></ol>
+
+Each type of vehicle (car, bus, lorry, bicycle) will inherit from the class Vehicle. The functionality of the ferry 
+is given by the interface Ferry :
+<pre>public interface Ferry  {
+   int countPassengers();             // Number of passengers on board
+   int countVehicleSpace();           // Correctly rounded off vehicle space. One car is 1
+   int countMoney();                  // Earned money
+   Vehicle[] getAllVehicles();        // An array containing all embarked vehicles   
+   void embark(Vehicle v);            // Embark vehicle, exception if not enough space
+   void embark(Passenger p);          // Embark passenger, exception if not enough room
+   void disembark();                  // Clear (empty) ferry. The money earned remains, 
+                                      // i.e., is not reset to zero 
+   boolean hasSpaceFor(Vehicle v);    // true if we can embark vehicle v
+   boolean hasRoomFor(Passenger p);   // true if we can embark passenger p
+   String toString();                 // Nice looking ferry status print out
+
+}
+</pre>
+A vehicle cannot leave the ferry until the ferry has been disembarked and the same vehicle cannot embark twice. 
+Also write a program FerryMain.java embarking a number of vehicles and passengers, showing the functionality of the methods.
+</li>
+<p>
+
+
+
+</p></ul>
+
+<h3>Lecture 3 - Simple Data Structures</h3>
+<ul>
+
+
+
+<li><b>Exercise 4</b><br>
+The zipped directory <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/int_collection.zip">int_collection.zip</a> contains an abstract class
+<tt>AbstractIntCollection</tt> and two interfaces <tt>IntList</tt> and <tt>IntStack</tt>. 
+The abtract class contains support for developing array-based data structures. The two interfaces define the functionality
+of an integer list and an integer stack. Your task is to implement the two interfaces by inheriting the support provided by the 
+abstract class and by adding the code required for each individual data structure. That is, provide two classes 
+<tt>ArrayIntList</tt> and <tt>ArrayIntStack</tt> with the following signatures.
+<pre>public class ArrayIntList extends AbstractIntCollection implements IntList
+
+public class ArrayIntStack extends AbstractIntCollection implements IntStack
+</pre>
+Additionally, write a program <tt>CollectionMain</tt> that demonstrates how the two classes can be used.<br>
+<b>Notice:</b> The two classes must make use of the abstract class and you are not allowed to make any changes 
+(not a single character) in either the abstract class or the two interfaces apart from changing the package name. 
+
+</li>
+<p>
+
+</p><li><b>Exercise 5</b><br><br>
+A Queue is a FIFO (first in, first out) data structure. Consider the following queue interface:
+<pre>public interface IntQueue extends Iterable&lt;Integer&gt; {  
+   public int size();                     // current queue size 
+   public boolean isEmpty();              // true if queue is empty 
+   public void enqueue(int element);   // add element at end of queue 
+   public int dequeue();               // return and remove first element. 
+   public int first();                 // return (without removing) first element 
+   public int last();                  // return (without removing) last element 
+   public String toString();              // return a string representation of the queue content
+
+}
+</pre>
+The iterator iterates over all elements of the queue. Operations not allowed on an empty queue 
+shall generate an unchecked exception.<br><br>
+
+<b>Tasks:</b>
+<ul>
+<li> Create a <em>linked</em> implementation <tt>LinkedQueue.java</tt> of the interface Queue. 
+Use the <em>head-and-tail</em> approach.
+</li><li> Write also a program <tt>QueueMain.java</tt> showing how all methods work.
+</li><li> Create Javadoc comments in the code and generate good-looking and extensive HTML documentation 
+for the interface and the class. All public class members shall be documented.
+</li></ul>
+
+<b>Notice:</b>
+<ul>
+<li> The implementation shall be linked, i.e. a sequence of linked nodes where each node represents an element.
+</li><li> You are not allowed to use any of the predefined collection classes in the Java library.
+</li><li> In the report, the HTML pages generated by the classes <tt>IntQueue</tt> and <tt>LinkedQueue</tt> 
+shall be attached. Attach no other HTML pages!
+</li></ul>
+
+</li>
+<p>
+</p>
+<li><b>Exercise 6 (VG Task)</b><br>
+A straight forward array based implementation of the Queue interface above would use an <tt>int</tt> array
+(that grows on demand) and two indices <tt>first</tt> and <tt>last</tt> to keep track of the array positions where 
+to remove an element on <tt>dequeue</tt> (return and increase position <tt>first</tt>), and where to add an element 
+on <tt>enqueue</tt> (insert at and increase position <tt>last</tt>).
+
+The problem with this approach is that after (say) 100 <tt>dequeue</tt> we will have that 
+<tt>first = 100</tt> and 100 non-used elements (positions 0 to 99) that never will be used again. 
+That is, a waste of memory.<br>
+<p>
+Your task is to provide an array based Queue implementation (<tt>ArrayQueue</tt>) that avoids this problem
+by treating the array like a circular structure in which array indices larger than the array size
+"wrap around'' to the beginning of the array.  That is,
+</p><ul>
+<li> When, after a number of enqueues, index <tt>last</tt> reaches <tt>array.length</tt>, you should move <tt>last</tt> to position 
+0 and start to reuse the first part of the array.
+</li><li> Later on, after an even larger number of dequeues, you will reach the point where index <tt>first</tt>
+reaches <tt>array.length</tt>. Then, move <tt>first</tt> to position 0 (and you have returned to the initial configuration 
+where all the queue elements are stored between <tt>first</tt> and <tt>last</tt>).
+</li><li> Finally, the array is full when <tt>last</tt>, after one or more "wrap arounds'', reaches <tt>first</tt>. In that case 
+you should resize the array and restore the order such that <tt>first</tt> equals 0.  
+</li></ul>
+<p>
+</p></li>
+<p>
+</p></ul>
+
+
+
+<pre>
+
+</pre>
+<hr style="color:#0000cc">
+
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+
+</body></html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://homepage.lnu.se/staff/jlnmsi/java2/2020/lab3.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="./1DV507_ Assignment 3_files/assignment.css">
+<title>1DV507: Assignment 3</title>
+</head>
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h4 style="color:#0000cc">1DV507, Programming and Data Structures, Spring 2020</h4>
+<hr style="color:#0000cc">
+<h1 style="color:#0000cc">Assignment 3: Recursion, Algorithms, and GUI (2)</h1>
+<hr style="color:#0000cc">
+
+<p>
+<b>Problems?</b><br>
+Do not hesitate to ask your teaching assistant at the practical meetings (or Jonas/Tobias at the lectures) 
+if you have any problems. You can also post a question in the assignment forum in Moodle.  
+</p><p>
+
+<b>Prepare Eclipse/IntelliJ for course 1DV507 and Assignment 3</b><br>
+Inside your Java project named 1DV507, 
+create a new <em>package</em> with the name <tt>YourLnuUserName_assign3</tt> 
+and save all program files for this 
+assignment inside that package.
+</p><p>
+
+
+
+
+</p><h4>General Assignment Rules</h4>
+<ul>
+<li> <b>Use English!</b> All documentation, names of variables, methods, classes, ..., should be in English.
+</li><li> Each exercise involving more than one class should be in a separate package with a suitable (English!) name.</li>
+<li> All programs asking the user to provide some input should check that the user input is correct 
+and take appropriate actions if it is not.
+</li></ul>
+
+<h4 style="color:#0000cc">Submission</h4>
+We are only interested in your .java files and please notice that the VG exercises 6b and 9 are not mandatory.
+You should always submit everything needed to compile and run your code. That is, apart from .java files, 
+figures and icons that might be used in the JavaFX exercises and maybe some external libraries (.jar files). <p></p>
+
+Each student submit their assignments by creating an issue (one for each assignment) 
+in their repository at the time of the deadline.  Instructions related to GitLab are published in Moodle.
+
+
+<h3>Lecture 7 - Recursion and External Packages</h3>
+Exercises 1-4 can be handled by a single class respectively. Hence, there is no need for any additional classes 
+apart from the one containing the main method. However, feel free to divide your programs into a 
+number of methods.
+<ul>
+<!--
+<li><b>Exercise 3</b><br>
+Write a program <tt>SumMain</tt>, that includes a recursive method computing the sum of the 
+integers 1, 2, 3, ..., N. The computation should be based on the following principle: the sum 
+of the integers from 1 to N is equal to the sum of the integers from 1 to N/2 added with the sum 
+of the integers from N/2+1 to N.<br/>
+Is this a good solution strategy? Motivate your answer!
+</li>
+<p>
+-->
+
+<li><b>Exercise 1</b><br>
+Write a program <tt>PrintRecursive</tt> that includes two recursive methods <tt>print(String str, int pos)</tt>
+and <tt>printReverse(String str, int pos)</tt> that prints the input string (one character at the time)
+as it is (<tt>print</tt>) and in reverse order <tt>printReverse</tt>. Add also a main method that
+looks like this
+<pre>public static void main(String[] args) {
+   String str = "Hello Everyone!";
+		
+   print(str, 0);
+   System.out.println(); // Line break
+   printReverse(str, 0);
+}
+</pre>
+and when executed generates the following output:
+<pre>Hello Everyone!
+!enoyrevE olleH
+</pre>
+<b>Notice:</b> Both methods should be recursive and you are not allowed to use any iterative statements. 
+</li>
+<p>
+
+</p><li><b>Exercise 2</b><br>
+Write a program <tt>PrintJavaMain</tt> that includes a recursive method  <tt>printAllJavaFiles(File directory)</tt> 
+that prints all <tt>.java</tt> files in the directory and all its sub directories. Both the 
+name of the file and the size, given as the number of rows, should be printed. All exceptions should 
+be handled in the program.
+
+</li>
+<p>
+
+
+
+</p><li><b>Exercise 3</b><br>
+Write a program <tt>PascalMain</tt> that prints the n:th row of Pascal’s Triangle. The program should 
+include a recursive method <tt>int[] pascalRow(int n)</tt> computing the n:th row of the triangle. 
+Notice, your program only needs to print line n, not necessarily the whole triangle.
+
+<center><br>
+<img src="./1DV507_ Assignment 3_files/pascalTriangle.png"> 
+<!--- <img src="http://homepage.lnu.se/staff/oldaaa/2dv106-2012/landscape.jpg" /> -->
+</center>
+</li>
+<p>
+
+
+</p><li><b>Exercise 4</b><br>
+
+XChart (<tt>http://knowm.org/open-source/xchart/</tt>) is an open source project making it possible 
+to, in a Java program, plot different charts and diagrams. You can also, for example, make simple 
+xy-plots, pie charts, bar charts and a lot of other things.<br>
+
+<p>
+<b>Note:</b> This task is about downloading, installing and learning to use an unknown Java package, 
+available on the Internet. Therefore, we will not provide much instructions. <br>
+
+</p><p>
+In the following tasks you are supposed to use XChart to produce different types of curves and diagrams.
+</p><ul>
+<li> <em>Warm up, not to be submitted.</em>: Download and install XChart. Test your installation 
+by creating a program <tt>ScatterPlot.java</tt> containing the following main method:
+
+<pre>public static void main(String[] args) {
+    // Create and Customize Chart
+    XYChart chart = new XYChartBuilder().width(800).height(600).build();
+    chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
+    chart.getStyler().setChartTitleVisible(false);
+    chart.getStyler().setLegendPosition(LegendPosition.InsideSW);
+    chart.getStyler().setMarkerSize(5);
+
+    // Generate data
+    List<double> xData = new ArrayList<double>();
+    List<double> yData = new ArrayList<double>();
+    Random random = new Random();
+    int size = 1000;
+    for (int i = 0; i &lt; size; i++) {
+        xData.add(random.nextGaussian() );
+        yData.add(random.nextGaussian());
+    }
+		    
+    // Display scatter plot
+    chart.addSeries("Gaussian Blob", xData, yData);
+    new SwingWrapper<xychart>(chart).displayChart();
+}
+</xychart></double></double></double></double></pre>
+
+</li><li> <em>To be submitted: </em> Write a program  <tt>SinMain.java</tt> plotting the curve <tt>y = (1 + x/pi)*cos(x)*cos(40*x)</tt> 
+in the range <tt>0 &lt;= x &lt;= 2*pi</tt>.</li>
+<li> <em>To be submitted: </em> The file <a href="http://homepage.lnu.se/staff/jlnmsi/java2/2020/integers.zip">integers.zip</a>  contains 1000 integers in the interval [0,99]. Write a program
+<tt>PieBarChart.java</tt> that reads the integer data and
+<ul>
+<li> Displays a <em>bar chart</em> showing the number of integers in the ten intervals &lt;10, &lt;20, ..., &lt;100 </li>
+<li> Displays a <em>pie chart</em> showing the percentage of integers in the ten intervals &lt;10, &lt;20, ..., &lt;100 </li>
+</ul>
+
+<br>
+The two figures should look something like this<br><br>
+<!--
+<img src="bar.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px"/>
+<img src="pie.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px; margin-bottom:20px;"/>
+-->
+<img src="./1DV507_ Assignment 3_files/bar.png" width="325px">
+<img src="./1DV507_ Assignment 3_files/pie.png" width="325px">
+<div style="clear:both;">
+</div></li>
+</ul>
+</li>
+<p>
+
+
+
+</p><h3 style="color:#0000cc">Lecture 8 - Algorithms (1)</h3>
+
+<ul>
+
+<li><b>Exercise 5 </b><br>
+Every Computer Science course involving algorithms should include the <em>Euclidean algorithm</em>!<br>
+The Euclidean algorithm is an algorithm to decide the greatest common divisor
+of two positive integers. The greatest common divisor of N and M, in short
+GCD(M,N), is the largest integer X such as M and N are evenly dividable
+with X. Some examples:
+<pre>GCD(18,12) = 6
+GCD(42,56) = 14
+GCD(9,28) = 1
+</pre>
+Write a program <tt>EuclideanMain</tt> that takes two integers as input
+and calculates (and presents) their GCD using this algorithm.<p>
+
+More information about the Euclidean algorithm can be found on the Internet.
+In Swedish: <em>Euklides algoritm</em>
+</p></li>
+<p>
+</p><p>
+
+</p><li><b>Exercise 6 (50% VG Exercise!)</b> <br><br>
+This exercise is about sorting arrays of integer and strings. Create one class <tt>SortingAlgorithms</tt>
+containing four static methods:
+<pre>   public int[] insertionSort(int[] in)
+   public int[] mergeSort(int[] in)         // VG Exercise
+   public String[] insertionSort(String[] in, Comparator&lt;String&gt; c)
+   public String[] mergeSort(String[] in, Comparator&lt;String&gt; c)   // VG Exercise
+</pre>
+All methods return a new sorted array where all elements are sorted in ascending order (lowest first)
+in the first two integer array methods, as defined by the Comparator in the final two String array methods.
+The input arrays <tt>in</tt> should not be changed. The methods should of course use the
+<em>Insertion Sort</em> and <em>Merge Sort</em> algorithms. <p>
+
+You should also provide a JUnit 5 test class <tt>SortTest</tt> that tests each method. </p><p>
+
+<b>Notice:</b>
+</p><ul>
+<li> Our suggestion is that you start to implement (and test) the integer versions.
+</li><li> Both algorithms are described in the lecture slides and in the textbook 
+Introduction to Java Programming and Data Structures by Liang. You can
+also find plenty of information on the Internet.
+</li><li> The textbooks (and Internet) also describes how to implement these algorithms (integer version)
+in Java. Feel free to take any such implementation as your starting point. However, in this case you
+must clearly state in your assignments submission which implementation you have used. Provide a web
+site if you have taken it from the Internet.
+</li></ul>
+</li>
+
+</ul>
+
+
+<h3 style="color:#0000cc">Lecture 9 - JavaFX (Part 2) </h3>
+<b>Important:</b> You are not allowed to use any GUI builder tools in these assignments.
+All your code should be written by you, not generated by a tool.
+<p></p>
+<p></p>
+<li><b>Exercise 7</b><br>
+  In the picture below there is a class in UML for  <b>NorseGod</b>s. In this task you are going
+  to create this class as well as a graphical user interface for showing information on the different gods
+  by selecting them from a list. <br>
+  <br>
+  When the program starts an <b>ArrayList</b> of these gods should be contructed and populated with <i>at least</i>
+  eight Norse gods (or other beings from the Norse mythology). The information stored is the name of the god,
+  its race (aesir, vanir, giant or other) as well as a description of the god (or being). The information on the
+  gods and beings themselves can be copied and pasted from Wikipedia.<br>
+  <br>
+  <img src="./1DV507_ Assignment 3_files/NorseGod.png" width="200px"><br>
+  <br>
+  The final program should look something like in the pictures below, but you are free to change the GUI
+  as long as the same functionality exists. The GUI shown has been created using a <b>BorderPane</b> for layout
+  and for the text the class <b>TextFlow</b> has been used (this is not a requirement, several <b>Text</b> or <b>Label</b>
+  classes are possible to use as well). A requirement is that the text should be scrollable
+  if too much is shown in the window and therefore you need to look at the class <b>ScrollPane</b>.<br>
+  <br>
+  <img src="./1DV507_ Assignment 3_files/ng1.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px">
+  <img src="./1DV507_ Assignment 3_files/ng2.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px; margin-bottom:20px;">
+
+</li>
+<div style="clear:both;">
+
+<p>
+  </p><li><b>Exercise 8</b><br>
+Create a JavaFX program called <tt>TinyPainter</tt> that will be a simple paint application. At the top of the application
+there should be a row of drop down menus for (in order) shape, size and colour. The shapes are limitied to Line, Dot, Rectangle
+and Circle and for Line and Dot a size is important, which is the second menu. The sizes should be ranging from 1 to 40 in suitable
+sizes (not all need to be included). The shapes Rectangle and Circle need no size but the menu can be available anyway.The last menu
+is for colour. Use the component <tt>ColorPicker</tt> to select a colour. <br>
+<br>
+When a shape, size and colour is selected, the user should be able to draw the shape in the window. Drawing is done by pressing a
+mouse button and then drag the mouse to the suitable position in the window. As long as the mouse key is pressed the shape should follow
+the mouse, but as soon as it is released, the shape should be finalised in the window. For a Line, the start position is where the
+mouse key is first pressed and end position where it is released. A rectangle is drawn from upper left corner to lower right corner while a
+Dot simply is a square in the size selected. A circle is drawn with the center at the position where the mouse key is pressed and with a
+radius to the mouse pointer.<br>
+<br>
+To simplify somewhat, it is acceptable if the shapes can overwrite the buttons at the top. See images below for examples of what
+the finished program can look like.<br>
+<br>
+<img src="./1DV507_ Assignment 3_files/tp1.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px">
+<img src="./1DV507_ Assignment 3_files/tp2.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px; margin-bottom:20px;">
+
+  </li>
+<p></p>
+<div style="clear:both;">
+
+<p>
+  </p><li><b>Exercise 9 (VG)</b><br>
+    For this task you will need some images that you can get at <a href="https://www.gameart2d.com/freebies.html">Game Art 2D</a>. The
+    task is to animate a character as shown in the images below over a flat surface. On the page referred to you will find so called
+    <em>sprites</em>, characters in different positions. For the example, a santa claus has been used which has eleven characters
+    for running (in the zip-file you download they have the name <tt>Run (x).png</tt>, where x is 1 to 11). There are also several
+    backgrounds and tiles to place on the backgrounds that you can combine using a paint tool. In the example a snowman and a tree
+    has be placed on the background at the start and end of the image. <br>
+    <br>
+    The task is to have a sprite running between the start (snowman) and end (tree) markers with JavaFX animation. You can use any
+    set of sprites and backgrounds from the Game Art 2D site as long as the character is running (unless you use the zombie set, then a
+    slither movement is quite okay). We recommend that you use a keyframe animation on a timeline but as long as the character is
+    nicely moving over the surface, it is okay.<br>
+    <br>
+    <img src="./1DV507_ Assignment 3_files/santa1.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px">
+    <img src="./1DV507_ Assignment 3_files/santa2.png" width="400px" style="float:left;border-style: solid; border-width: thin;margin-left:10px; margin-bottom:20px;">
+  </li>
+<p></p>
+<div style="clear:both;">
+
+
+
+<pre>
+
+</pre>
+<hr style="color:#0000cc">
+
+<pre>
+
+</pre>
+
+
+
+</div></div></div></ul></body></html>
