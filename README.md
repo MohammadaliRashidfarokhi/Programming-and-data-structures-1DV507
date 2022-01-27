@@ -1,4 +1,4 @@
-# Programming and data structures.
+# Programming and data structures:
 
 # Assignment 1:
 Inheritance and Data Structures.
